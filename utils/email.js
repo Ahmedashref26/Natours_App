@@ -6,13 +6,13 @@ module.exports = class Email {
   constructor(user, url) {
     this.to = user.email;
     this.fullName = user.name.split(' ')[0];
-    this.from = `Ahmed Ashref <${process.env.EMAIL_FROM}>`;
+    this.from = `${process.env.EMAIL_FROM}`;
     this.url = url;
   }
 
   newTransport() {
     if (process.env.NODE_ENV === 'production') {
-      //sendgrid
+      // Sendgrid
       return nodemailer.createTransport({
         service: 'SendGrid',
         auth: {
@@ -43,14 +43,18 @@ module.exports = class Email {
     );
 
     const mailOptions = {
-      form: this.from,
+      from: this.from,
       to: this.to,
       subject,
       html,
       text: htmlToText(html),
     };
 
-    await this.newTransport().sendMail(mailOptions);
+    await this.newTransport().sendMail(mailOptions, (err) => {
+      if (err) {
+        console.log('EMAIL SENDING ERROR: ', err);
+      }
+    });
   }
 
   async sendWelcome() {
