@@ -9,9 +9,12 @@ const {
   getAccount,
   updateUserData,
   getMyTours,
+  alerts,
 } = require('../controllers/viewsController');
 
 const router = express.Router();
+
+router.use(alerts);
 
 router.get('/', isLoggedIn, getOverview);
 router.get('/tour/:slug', isLoggedIn, getTour);
