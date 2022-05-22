@@ -22,7 +22,7 @@
 
 ## Deployed Version
 
-Live demo 👉 :
+Live demo 👉 : https://ahmed-natours.herokuapp.com/
 
 ## Key Features
 
